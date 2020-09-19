@@ -46,6 +46,7 @@ namespace Covid19Stats
             this.TimerCountryData = new System.Windows.Forms.Timer(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
+            this.LabelNextUpdate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRefreshInterval)).BeginInit();
             this.GroupBoxCountryData.SuspendLayout();
             this.SuspendLayout();
@@ -122,6 +123,7 @@ namespace Covid19Stats
             // 
             // GroupBoxCountryData
             // 
+            this.GroupBoxCountryData.Controls.Add(this.LabelNextUpdate);
             this.GroupBoxCountryData.Controls.Add(this.TextBoxSpecificCountry);
             this.GroupBoxCountryData.Controls.Add(this.CheckBoxSpecificCountry);
             this.GroupBoxCountryData.Controls.Add(this.label4);
@@ -211,6 +213,15 @@ namespace Covid19Stats
             this.label5.TabIndex = 11;
             this.label5.Text = "Data from: about-corona.net";
             // 
+            // LabelNextUpdate
+            // 
+            this.LabelNextUpdate.AutoSize = true;
+            this.LabelNextUpdate.Location = new System.Drawing.Point(6, 152);
+            this.LabelNextUpdate.Name = "LabelNextUpdate";
+            this.LabelNextUpdate.Size = new System.Drawing.Size(76, 15);
+            this.LabelNextUpdate.TabIndex = 14;
+            this.LabelNextUpdate.Text = "Next Update:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -250,6 +261,7 @@ namespace Covid19Stats
         private System.Windows.Forms.TextBox TextBoxSpecificCountry;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label LabelNextUpdate;
     }
 }
 

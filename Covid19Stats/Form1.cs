@@ -53,6 +53,7 @@ namespace Covid19Stats
 
             ProgressBarCountryData.Visible = true;
 
+            LabelNextUpdate.Text = $"Next Update: {DateTime.Now.AddMinutes((int)NumericUpDownRefreshInterval.Value).ToLongTimeString()}";
             await CovidService.UpdateCountryData(CheckBoxSpecificCountry.Checked ? TextBoxSpecificCountry.Text : string.Empty);
 
             ProgressBarCountryData.Visible = false;

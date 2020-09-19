@@ -42,8 +42,16 @@ namespace Covid19Stats
                     var stream = await client.GetStreamAsync($"https://corona-api.com/countries");
                     var data = await JsonSerializer.DeserializeAsync<AllCountriesData.Root>(stream);
 
+                    double deaths = 0;
+                    double recovered = 0;
+                    double confirmed = 0;
+                    double critical = 0;
                     foreach(var d in data.Data)
                     {
+                        deaths += d.LatestData.Deaths;
+                        recovered += d.LatestData.Recovered;
+                        confirmed += d.LatestData.Confirmed;
+                        critical += d.LatestData.Critical;
                         country = d.Code.ToLowerInvariant();
                         await Task.Run(() =>
                         {
@@ -56,7 +64,17 @@ namespace Covid19Stats
                             File.WriteAllText(Path.Combine(path, $"{country}-calculated-recoveryrate.txt"), d.LatestData.Calculated.RecoveryRate?.ToString("N4") ?? string.Empty);
                             File.WriteAllText(Path.Combine(path, $"{country}-calculated-casespermillion.txt"), d.LatestData.Calculated.CasesPerMillionPopulation.ToString("N0"));
                         });
+
                     }
+
+
+                    await Task.Run(() =>
+                    {
+                        File.WriteAllText(Path.Combine(path, $"all-total-deaths.txt"), deaths.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"all-total-confirmed.txt"), confirmed.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"all-total-recovered.txt"), recovered.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"all-total-critical.txt"), critical.ToString("N0"));
+                    });
                 }
             }
             catch (Exception ex)
