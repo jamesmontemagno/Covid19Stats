@@ -25,8 +25,8 @@ namespace Covid19Stats
 
         public static string CountryCode
         {
-            get => AppSettings.GetValueOrDefault(nameof(DirectoryPath), "US");
-            set => AppSettings.AddOrUpdateValue(nameof(DirectoryPath), value);
+            get => AppSettings.GetValueOrDefault(nameof(CountryCode), "US");
+            set => AppSettings.AddOrUpdateValue(nameof(CountryCode), value);
         }
 
         public static bool SpecificCountry

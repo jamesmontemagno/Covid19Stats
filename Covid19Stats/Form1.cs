@@ -24,6 +24,7 @@ namespace Covid19Stats
 
         private void ButtonStartStop_Click(object sender, EventArgs e)
         {
+            var enable = true;
             if(TimerCountryData.Enabled)
             {
                 TimerCountryData.Stop();
@@ -32,10 +33,17 @@ namespace Covid19Stats
             else
             {
                 ButtonStartStop.Text = "Stop";
+                enable = false;
                 TimerCountryData.Interval = (int)TimeSpan.FromMinutes((int)NumericUpDownRefreshInterval.Value).TotalMilliseconds;
                 TimerCountryData.Start();
                 TimerCountryData_Tick(null, null);
             }
+
+
+            CheckBoxSpecificCountry.Enabled = enable;
+            TextBoxSpecificCountry.Enabled = enable;
+            ButtonChooseFileLocation.Enabled = enable;
+            NumericUpDownRefreshInterval.Enabled = enable;
         }
 
         private async void TimerCountryData_Tick(object sender, EventArgs e)
@@ -53,6 +61,26 @@ namespace Covid19Stats
         private void NumericUpDownRefreshInterval_ValueChanged(object sender, EventArgs e)
         {
             SettingsService.CountryRefreshInterval = (int)NumericUpDownRefreshInterval.Value;
+        }
+
+        private void ButtonChooseFileLocation_Click(object sender, EventArgs e)
+        {
+            var result = FolderBrowserDialogFileLocation.ShowDialog();
+            if (result != DialogResult.OK)
+                return;
+
+            LabelFileLocation.Text = FolderBrowserDialogFileLocation.SelectedPath;
+            SettingsService.DirectoryPath = FolderBrowserDialogFileLocation.SelectedPath;
+        }
+
+        private void CheckBoxSpecificCountry_CheckedChanged(object sender, EventArgs e)
+        {
+            SettingsService.SpecificCountry = CheckBoxSpecificCountry.Checked;
+        }
+
+        private void TextBoxSpecificCountry_TextChanged(object sender, EventArgs e)
+        {
+            SettingsService.CountryCode = TextBoxSpecificCountry.Text;
         }
     }
 }

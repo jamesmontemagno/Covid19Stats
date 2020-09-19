@@ -27,14 +27,14 @@ namespace Covid19Stats
 
                     await Task.Run(() =>
                     {
-                        File.WriteAllText(Path.Combine(path, $"{country}-population.txt"), data.Data.Population.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-total-deaths.txt"), data.Data.LatestData.Deaths.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-total-confirmed.txt"), data.Data.LatestData.Confirmed.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-total-recovered.txt"), data.Data.LatestData.Recovered.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-total-critical.txt"), data.Data.LatestData.Critical.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-deathrate.txt"), data.Data.LatestData.Calculated.DeathRate.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-recoveryrate.txt"), data.Data.LatestData.Calculated.RecoveryRate.ToString());
-                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-casespermillion.txt"), data.Data.LatestData.Calculated.CasesPerMillionPopulation.ToString());
+                        File.WriteAllText(Path.Combine(path, $"{country}-population.txt"), data.Data.Population.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-total-deaths.txt"), data.Data.LatestData.Deaths.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-total-confirmed.txt"), data.Data.LatestData.Confirmed.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-total-recovered.txt"), data.Data.LatestData.Recovered.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-total-critical.txt"), data.Data.LatestData.Critical.ToString("N0"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-deathrate.txt"), data.Data.LatestData.Calculated.DeathRate.ToString("N4"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-recoveryrate.txt"), data.Data.LatestData.Calculated.RecoveryRate.ToString("N4"));
+                        File.WriteAllText(Path.Combine(path, $"{country}-calculated-casespermillion.txt"), data.Data.LatestData.Calculated.CasesPerMillionPopulation.ToString("N0"));
                     });
                 }
                 else
@@ -47,14 +47,14 @@ namespace Covid19Stats
                         country = d.Code.ToLowerInvariant();
                         await Task.Run(() =>
                         {
-                            File.WriteAllText(Path.Combine(path, $"{country}-population.txt"), d.Population.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-total-deaths.txt"), d.LatestData.Deaths.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-total-confirmed.txt"), d.LatestData.Confirmed.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-total-recovered.txt"), d.LatestData.Recovered.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-total-critical.txt"), d.LatestData.Critical.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-deathrate.txt"), d.LatestData.Calculated.DeathRate.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-recoveryrate.txt"), d.LatestData.Calculated.RecoveryRate.ToString());
-                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-casespermillion.txt"), d.LatestData.Calculated.CasesPerMillionPopulation.ToString());
+                            File.WriteAllText(Path.Combine(path, $"{country}-population.txt"), d.Population?.ToString("N0") ?? string.Empty);
+                            File.WriteAllText(Path.Combine(path, $"{country}-total-deaths.txt"), d.LatestData.Deaths.ToString("N0"));
+                            File.WriteAllText(Path.Combine(path, $"{country}-total-confirmed.txt"), d.LatestData.Confirmed.ToString("N0"));
+                            File.WriteAllText(Path.Combine(path, $"{country}-total-recovered.txt"), d.LatestData.Recovered.ToString("N0"));
+                            File.WriteAllText(Path.Combine(path, $"{country}-total-critical.txt"), d.LatestData.Critical.ToString("N0"));
+                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-deathrate.txt"), d.LatestData.Calculated.DeathRate?.ToString("N4") ?? string.Empty);
+                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-recoveryrate.txt"), d.LatestData.Calculated.RecoveryRate?.ToString("N4") ?? string.Empty);
+                            File.WriteAllText(Path.Combine(path, $"{country}-calculated-casespermillion.txt"), d.LatestData.Calculated.CasesPerMillionPopulation.ToString("N0"));
                         });
                     }
                 }

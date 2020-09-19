@@ -44,6 +44,8 @@ namespace Covid19Stats
             this.ProgressBarCountryData = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.TimerCountryData = new System.Windows.Forms.Timer(this.components);
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRefreshInterval)).BeginInit();
             this.GroupBoxCountryData.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +90,7 @@ namespace Covid19Stats
             this.ButtonChooseFileLocation.TabIndex = 4;
             this.ButtonChooseFileLocation.Text = "...";
             this.ButtonChooseFileLocation.UseVisualStyleBackColor = true;
+            this.ButtonChooseFileLocation.Click += new System.EventHandler(this.ButtonChooseFileLocation_Click);
             // 
             // label3
             // 
@@ -100,15 +103,16 @@ namespace Covid19Stats
             // 
             // LabelFileLocation
             // 
+            this.LabelFileLocation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LabelFileLocation.Location = new System.Drawing.Point(137, 77);
             this.LabelFileLocation.Name = "LabelFileLocation";
-            this.LabelFileLocation.Size = new System.Drawing.Size(190, 15);
+            this.LabelFileLocation.Size = new System.Drawing.Size(276, 15);
             this.LabelFileLocation.TabIndex = 6;
             this.LabelFileLocation.Text = "label4";
             // 
             // ButtonStartStop
             // 
-            this.ButtonStartStop.Location = new System.Drawing.Point(102, 130);
+            this.ButtonStartStop.Location = new System.Drawing.Point(338, 157);
             this.ButtonStartStop.Name = "ButtonStartStop";
             this.ButtonStartStop.Size = new System.Drawing.Size(75, 23);
             this.ButtonStartStop.TabIndex = 8;
@@ -131,7 +135,7 @@ namespace Covid19Stats
             this.GroupBoxCountryData.Controls.Add(this.ButtonChooseFileLocation);
             this.GroupBoxCountryData.Location = new System.Drawing.Point(12, 12);
             this.GroupBoxCountryData.Name = "GroupBoxCountryData";
-            this.GroupBoxCountryData.Size = new System.Drawing.Size(334, 170);
+            this.GroupBoxCountryData.Size = new System.Drawing.Size(419, 186);
             this.GroupBoxCountryData.TabIndex = 9;
             this.GroupBoxCountryData.TabStop = false;
             this.GroupBoxCountryData.Text = "COVID-19 Country Data";
@@ -144,6 +148,7 @@ namespace Covid19Stats
             this.TextBoxSpecificCountry.PlaceholderText = "Country Code";
             this.TextBoxSpecificCountry.Size = new System.Drawing.Size(89, 23);
             this.TextBoxSpecificCountry.TabIndex = 13;
+            this.TextBoxSpecificCountry.TextChanged += new System.EventHandler(this.TextBoxSpecificCountry_TextChanged);
             // 
             // CheckBoxSpecificCountry
             // 
@@ -155,6 +160,7 @@ namespace Covid19Stats
             this.CheckBoxSpecificCountry.Size = new System.Drawing.Size(15, 14);
             this.CheckBoxSpecificCountry.TabIndex = 12;
             this.CheckBoxSpecificCountry.UseVisualStyleBackColor = true;
+            this.CheckBoxSpecificCountry.CheckedChanged += new System.EventHandler(this.CheckBoxSpecificCountry_CheckedChanged);
             // 
             // label4
             // 
@@ -167,9 +173,9 @@ namespace Covid19Stats
             // 
             // ProgressBarCountryData
             // 
-            this.ProgressBarCountryData.Location = new System.Drawing.Point(183, 130);
+            this.ProgressBarCountryData.Location = new System.Drawing.Point(6, 170);
             this.ProgressBarCountryData.Name = "ProgressBarCountryData";
-            this.ProgressBarCountryData.Size = new System.Drawing.Size(100, 23);
+            this.ProgressBarCountryData.Size = new System.Drawing.Size(326, 10);
             this.ProgressBarCountryData.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.ProgressBarCountryData.TabIndex = 10;
             // 
@@ -186,18 +192,43 @@ namespace Covid19Stats
             // 
             this.TimerCountryData.Tick += new System.EventHandler(this.TimerCountryData_Tick);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(256, 210);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(175, 15);
+            this.linkLabel1.TabIndex = 10;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Created by James Montemagno";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 209);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 15);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Data from: about-corona.net";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(443, 236);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.GroupBoxCountryData);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "COVID-19 Stats";
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRefreshInterval)).EndInit();
             this.GroupBoxCountryData.ResumeLayout(false);
             this.GroupBoxCountryData.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -217,6 +248,8 @@ namespace Covid19Stats
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox CheckBoxSpecificCountry;
         private System.Windows.Forms.TextBox TextBoxSpecificCountry;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label5;
     }
 }
 
