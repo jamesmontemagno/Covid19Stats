@@ -16,10 +16,20 @@ namespace Covid19Stats
         {
             InitializeComponent();
             ProgressBarCountryData.Visible = false;
-            CheckBoxSpecificCountry.Checked = SettingsService.SpecificCountry;
-            TextBoxSpecificCountry.Text = SettingsService.CountryCode;
+            CheckBoxWorldData.Checked = SettingsService.WorldData;
+            RadioButtonSpecificCountry.Checked = SettingsService.SpecificCountry;
+            RadioButtonAllCountries.Checked = !SettingsService.SpecificCountry;
             NumericUpDownRefreshInterval.Value = SettingsService.CountryRefreshInterval;
-            LabelFileLocation.Text = SettingsService.DirectoryPath;
+            TextBoxFileLocation.Text = SettingsService.DirectoryPath;
+            ComboBoxCountries.Items.AddRange(CovidService.Countries.ToArray());
+
+            if(!string.IsNullOrWhiteSpace(SettingsService.CountryCode))
+            {
+                var country = CovidService.Countries.FirstOrDefault(c => c.Code == SettingsService.CountryCode);
+                if (country != null)
+                    ComboBoxCountries.SelectedItem = country;
+
+            }    
         }
 
         private void ButtonStartStop_Click(object sender, EventArgs e)
@@ -39,11 +49,20 @@ namespace Covid19Stats
                 TimerCountryData_Tick(null, null);
             }
 
+            UpdateEnable(enable);
+        }
 
-            CheckBoxSpecificCountry.Enabled = enable;
-            TextBoxSpecificCountry.Enabled = enable;
+        void UpdateEnable(bool enable, bool setStartStop = false)
+        {
+            RadioButtonAllCountries.Enabled = enable;
+            RadioButtonSpecificCountry.Enabled = enable;
+            CheckBoxWorldData.Enabled = enable;
+            ComboBoxCountries.Enabled = enable;
             ButtonChooseFileLocation.Enabled = enable;
             NumericUpDownRefreshInterval.Enabled = enable;
+            ButtonGetData.Enabled = enable;
+            if (setStartStop)
+                ButtonStartStop.Enabled = enable;
         }
 
         private async void TimerCountryData_Tick(object sender, EventArgs e)
@@ -51,10 +70,20 @@ namespace Covid19Stats
             if (ProgressBarCountryData.Visible)
                 return;
 
+            await GetData();
+        }
+
+        async Task GetData()
+        {
+
             ProgressBarCountryData.Visible = true;
 
-            LabelNextUpdate.Text = $"Next Update: {DateTime.Now.AddMinutes((int)NumericUpDownRefreshInterval.Value).ToLongTimeString()}";
-            await CovidService.UpdateCountryData(CheckBoxSpecificCountry.Checked ? TextBoxSpecificCountry.Text : string.Empty);
+            if (TimerCountryData.Enabled)
+                LabelNextUpdate.Text = $"Next Update: {DateTime.Now.AddMinutes((int)NumericUpDownRefreshInterval.Value).ToLongTimeString()}";
+            else
+                LabelNextUpdate.Text = string.Empty;
+
+            await CovidService.UpdateCountryData(RadioButtonSpecificCountry.Checked ? ((Country)ComboBoxCountries.SelectedItem).Code : string.Empty, CheckBoxWorldData.Checked);
 
             ProgressBarCountryData.Visible = false;
         }
@@ -70,18 +99,47 @@ namespace Covid19Stats
             if (result != DialogResult.OK)
                 return;
 
-            LabelFileLocation.Text = FolderBrowserDialogFileLocation.SelectedPath;
+            TextBoxFileLocation.Text = FolderBrowserDialogFileLocation.SelectedPath;
             SettingsService.DirectoryPath = FolderBrowserDialogFileLocation.SelectedPath;
         }
 
-        private void CheckBoxSpecificCountry_CheckedChanged(object sender, EventArgs e)
+
+
+        void SetCountryDataSettings()
         {
-            SettingsService.SpecificCountry = CheckBoxSpecificCountry.Checked;
+            SettingsService.SpecificCountry = RadioButtonSpecificCountry.Checked;
         }
 
-        private void TextBoxSpecificCountry_TextChanged(object sender, EventArgs e)
+        private void RadioButtonSpecificCountry_CheckedChanged(object sender, EventArgs e)
         {
-            SettingsService.CountryCode = TextBoxSpecificCountry.Text;
+            SetCountryDataSettings();
+            //RadioButtonAllCountries.Checked = false;
+
+        }
+
+        private void RadioButtonAllCountries_CheckedChanged(object sender, EventArgs e)
+        {
+            SetCountryDataSettings();
+            //RadioButtonSpecificCountry.Checked = false;
+        }
+
+        private void CheckBoxWorldData_CheckedChanged(object sender, EventArgs e)
+        {
+            SettingsService.WorldData = CheckBoxWorldData.Checked;
+        }
+
+        private void ComboBoxCountries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SettingsService.CountryCode = ((Country)ComboBoxCountries.SelectedItem).Code;
+        }
+
+        private async void ButtonGetData_Click(object sender, EventArgs e)
+        {
+            UpdateEnable(false, true);
+
+            await GetData();
+
+            UpdateEnable(true, true);
         }
     }
 }

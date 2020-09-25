@@ -4,6 +4,19 @@ using System.Text.Json.Serialization;
 
 namespace Covid19Stats
 {
+    public class Country
+    {
+        public Country(string code, string name)
+        {
+            Code = code;
+            Name = name;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+
+        public override string ToString() => Name;
+    }
+
     public class AllCountriesData
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
@@ -98,10 +111,10 @@ namespace Covid19Stats
         public class Coordinates
         {
             [JsonPropertyName("latitude")]
-            public int Latitude { get; set; }
+            public double? Latitude { get; set; }
 
             [JsonPropertyName("longitude")]
-            public int Longitude { get; set; }
+            public double? Longitude { get; set; }
         }
 
         public class Today
@@ -122,7 +135,7 @@ namespace Covid19Stats
             public double RecoveryRate { get; set; }
 
             [JsonPropertyName("recovered_vs_death_ratio")]
-            public object RecoveredVsDeathRatio { get; set; }
+            public double? RecoveredVsDeathRatio { get; set; }
 
             [JsonPropertyName("cases_per_million_population")]
             public int CasesPerMillionPopulation { get; set; }
@@ -211,5 +224,53 @@ namespace Covid19Stats
             [JsonPropertyName("_cacheHit")]
             public bool CacheHit { get; set; }
         }
+    }
+
+    public class WorldData
+    {
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+        public class Datum
+        {
+            [JsonPropertyName("updated_at")]
+            public DateTime UpdatedAt { get; set; }
+
+            [JsonPropertyName("date")]
+            public string Date { get; set; }
+
+            [JsonPropertyName("deaths")]
+            public int Deaths { get; set; }
+
+            [JsonPropertyName("confirmed")]
+            public int Confirmed { get; set; }
+
+            [JsonPropertyName("recovered")]
+            public int Recovered { get; set; }
+
+            [JsonPropertyName("active")]
+            public int Active { get; set; }
+
+            [JsonPropertyName("new_confirmed")]
+            public int NewConfirmed { get; set; }
+
+            [JsonPropertyName("new_recovered")]
+            public int NewRecovered { get; set; }
+
+            [JsonPropertyName("new_deaths")]
+            public int NewDeaths { get; set; }
+
+            [JsonPropertyName("is_in_progress")]
+            public bool IsInProgress { get; set; }
+        }
+
+        public class Root
+        {
+            [JsonPropertyName("data")]
+            public List<Datum> Data { get; set; }
+
+            [JsonPropertyName("_cacheHit")]
+            public bool CacheHit { get; set; }
+        }
+
+
     }
 }

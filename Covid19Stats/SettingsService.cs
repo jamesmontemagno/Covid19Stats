@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -10,10 +11,16 @@ namespace Covid19Stats
     public static class SettingsService
     {
         static string defaultDirectoryPath;
+        static string defaultCountry = "us";
         static SettingsService()
         {
-            var baseDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            var baseDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             defaultDirectoryPath = Path.Combine(baseDir, "COVID19Stats");
+
+            var iso = new RegionInfo(CultureInfo.CurrentCulture.LCID).TwoLetterISORegionName.ToLowerInvariant(); ;
+
+            if (CovidService.Countries.Any(c => c.Code == iso))
+                defaultCountry = iso;
         }
         static SettingsImplementation settings;
         static SettingsImplementation AppSettings => settings ??= new SettingsImplementation();
@@ -25,7 +32,7 @@ namespace Covid19Stats
 
         public static string CountryCode
         {
-            get => AppSettings.GetValueOrDefault(nameof(CountryCode), "US");
+            get => AppSettings.GetValueOrDefault(nameof(CountryCode), defaultCountry);
             set => AppSettings.AddOrUpdateValue(nameof(CountryCode), value);
         }
 
@@ -33,6 +40,12 @@ namespace Covid19Stats
         {
             get => AppSettings.GetValueOrDefault(nameof(SpecificCountry), true);
             set => AppSettings.AddOrUpdateValue(nameof(SpecificCountry), value);
+        }
+
+        public static bool WorldData
+        {
+            get => AppSettings.GetValueOrDefault(nameof(WorldData), true);
+            set => AppSettings.AddOrUpdateValue(nameof(WorldData), value);
         }
 
         public static int CountryRefreshInterval

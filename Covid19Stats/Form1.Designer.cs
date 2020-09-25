@@ -34,19 +34,22 @@ namespace Covid19Stats
             this.NumericUpDownRefreshInterval = new System.Windows.Forms.NumericUpDown();
             this.ButtonChooseFileLocation = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.LabelFileLocation = new System.Windows.Forms.Label();
             this.FolderBrowserDialogFileLocation = new System.Windows.Forms.FolderBrowserDialog();
             this.ButtonStartStop = new System.Windows.Forms.Button();
             this.GroupBoxCountryData = new System.Windows.Forms.GroupBox();
-            this.TextBoxSpecificCountry = new System.Windows.Forms.TextBox();
-            this.CheckBoxSpecificCountry = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.ButtonGetData = new System.Windows.Forms.Button();
+            this.ComboBoxCountries = new System.Windows.Forms.ComboBox();
+            this.CheckBoxWorldData = new System.Windows.Forms.CheckBox();
+            this.RadioButtonAllCountries = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.RadioButtonSpecificCountry = new System.Windows.Forms.RadioButton();
+            this.TextBoxFileLocation = new System.Windows.Forms.TextBox();
+            this.LabelNextUpdate = new System.Windows.Forms.Label();
             this.ProgressBarCountryData = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.TimerCountryData = new System.Windows.Forms.Timer(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
-            this.LabelNextUpdate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownRefreshInterval)).BeginInit();
             this.GroupBoxCountryData.SuspendLayout();
             this.SuspendLayout();
@@ -102,18 +105,9 @@ namespace Covid19Stats
             this.label3.TabIndex = 5;
             this.label3.Text = "File Location";
             // 
-            // LabelFileLocation
-            // 
-            this.LabelFileLocation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.LabelFileLocation.Location = new System.Drawing.Point(137, 77);
-            this.LabelFileLocation.Name = "LabelFileLocation";
-            this.LabelFileLocation.Size = new System.Drawing.Size(276, 15);
-            this.LabelFileLocation.TabIndex = 6;
-            this.LabelFileLocation.Text = "label4";
-            // 
             // ButtonStartStop
             // 
-            this.ButtonStartStop.Location = new System.Drawing.Point(338, 157);
+            this.ButtonStartStop.Location = new System.Drawing.Point(338, 189);
             this.ButtonStartStop.Name = "ButtonStartStop";
             this.ButtonStartStop.Size = new System.Drawing.Size(75, 23);
             this.ButtonStartStop.TabIndex = 8;
@@ -123,59 +117,112 @@ namespace Covid19Stats
             // 
             // GroupBoxCountryData
             // 
+            this.GroupBoxCountryData.Controls.Add(this.ButtonGetData);
+            this.GroupBoxCountryData.Controls.Add(this.ComboBoxCountries);
+            this.GroupBoxCountryData.Controls.Add(this.CheckBoxWorldData);
+            this.GroupBoxCountryData.Controls.Add(this.RadioButtonAllCountries);
+            this.GroupBoxCountryData.Controls.Add(this.label6);
+            this.GroupBoxCountryData.Controls.Add(this.RadioButtonSpecificCountry);
+            this.GroupBoxCountryData.Controls.Add(this.TextBoxFileLocation);
             this.GroupBoxCountryData.Controls.Add(this.LabelNextUpdate);
-            this.GroupBoxCountryData.Controls.Add(this.TextBoxSpecificCountry);
-            this.GroupBoxCountryData.Controls.Add(this.CheckBoxSpecificCountry);
-            this.GroupBoxCountryData.Controls.Add(this.label4);
             this.GroupBoxCountryData.Controls.Add(this.ProgressBarCountryData);
             this.GroupBoxCountryData.Controls.Add(this.label2);
             this.GroupBoxCountryData.Controls.Add(this.ButtonStartStop);
             this.GroupBoxCountryData.Controls.Add(this.label1);
-            this.GroupBoxCountryData.Controls.Add(this.LabelFileLocation);
             this.GroupBoxCountryData.Controls.Add(this.NumericUpDownRefreshInterval);
             this.GroupBoxCountryData.Controls.Add(this.label3);
             this.GroupBoxCountryData.Controls.Add(this.ButtonChooseFileLocation);
             this.GroupBoxCountryData.Location = new System.Drawing.Point(12, 12);
             this.GroupBoxCountryData.Name = "GroupBoxCountryData";
-            this.GroupBoxCountryData.Size = new System.Drawing.Size(419, 186);
+            this.GroupBoxCountryData.Size = new System.Drawing.Size(419, 218);
             this.GroupBoxCountryData.TabIndex = 9;
             this.GroupBoxCountryData.TabStop = false;
             this.GroupBoxCountryData.Text = "COVID-19 Country Data";
             // 
-            // TextBoxSpecificCountry
+            // ButtonGetData
             // 
-            this.TextBoxSpecificCountry.Location = new System.Drawing.Point(127, 102);
-            this.TextBoxSpecificCountry.MaxLength = 2;
-            this.TextBoxSpecificCountry.Name = "TextBoxSpecificCountry";
-            this.TextBoxSpecificCountry.PlaceholderText = "Country Code";
-            this.TextBoxSpecificCountry.Size = new System.Drawing.Size(89, 23);
-            this.TextBoxSpecificCountry.TabIndex = 13;
-            this.TextBoxSpecificCountry.TextChanged += new System.EventHandler(this.TextBoxSpecificCountry_TextChanged);
+            this.ButtonGetData.Location = new System.Drawing.Point(338, 160);
+            this.ButtonGetData.Name = "ButtonGetData";
+            this.ButtonGetData.Size = new System.Drawing.Size(75, 23);
+            this.ButtonGetData.TabIndex = 20;
+            this.ButtonGetData.Text = "Get";
+            this.ButtonGetData.UseVisualStyleBackColor = true;
+            this.ButtonGetData.Click += new System.EventHandler(this.ButtonGetData_Click);
             // 
-            // CheckBoxSpecificCountry
+            // ComboBoxCountries
             // 
-            this.CheckBoxSpecificCountry.AutoSize = true;
-            this.CheckBoxSpecificCountry.Checked = true;
-            this.CheckBoxSpecificCountry.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxSpecificCountry.Location = new System.Drawing.Point(106, 106);
-            this.CheckBoxSpecificCountry.Name = "CheckBoxSpecificCountry";
-            this.CheckBoxSpecificCountry.Size = new System.Drawing.Size(15, 14);
-            this.CheckBoxSpecificCountry.TabIndex = 12;
-            this.CheckBoxSpecificCountry.UseVisualStyleBackColor = true;
-            this.CheckBoxSpecificCountry.CheckedChanged += new System.EventHandler(this.CheckBoxSpecificCountry_CheckedChanged);
+            this.ComboBoxCountries.DisplayMember = "Name";
+            this.ComboBoxCountries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBoxCountries.FormattingEnabled = true;
+            this.ComboBoxCountries.Location = new System.Drawing.Point(137, 103);
+            this.ComboBoxCountries.Name = "ComboBoxCountries";
+            this.ComboBoxCountries.Size = new System.Drawing.Size(177, 23);
+            this.ComboBoxCountries.TabIndex = 19;
+            this.ComboBoxCountries.ValueMember = "Code";
+            this.ComboBoxCountries.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCountries_SelectedIndexChanged);
             // 
-            // label4
+            // CheckBoxWorldData
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 105);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 15);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Specific Country";
+            this.CheckBoxWorldData.AutoSize = true;
+            this.CheckBoxWorldData.Location = new System.Drawing.Point(106, 132);
+            this.CheckBoxWorldData.Name = "CheckBoxWorldData";
+            this.CheckBoxWorldData.Size = new System.Drawing.Size(113, 19);
+            this.CheckBoxWorldData.TabIndex = 18;
+            this.CheckBoxWorldData.Text = "World Total Data";
+            this.CheckBoxWorldData.UseVisualStyleBackColor = true;
+            this.CheckBoxWorldData.CheckedChanged += new System.EventHandler(this.CheckBoxWorldData_CheckedChanged);
+            // 
+            // RadioButtonAllCountries
+            // 
+            this.RadioButtonAllCountries.AutoSize = true;
+            this.RadioButtonAllCountries.Location = new System.Drawing.Point(320, 104);
+            this.RadioButtonAllCountries.Name = "RadioButtonAllCountries";
+            this.RadioButtonAllCountries.Size = new System.Drawing.Size(93, 19);
+            this.RadioButtonAllCountries.TabIndex = 17;
+            this.RadioButtonAllCountries.TabStop = true;
+            this.RadioButtonAllCountries.Text = "All Countries";
+            this.RadioButtonAllCountries.UseVisualStyleBackColor = true;
+            this.RadioButtonAllCountries.CheckedChanged += new System.EventHandler(this.RadioButtonAllCountries_CheckedChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(69, 103);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(31, 15);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Data";
+            // 
+            // RadioButtonSpecificCountry
+            // 
+            this.RadioButtonSpecificCountry.AutoSize = true;
+            this.RadioButtonSpecificCountry.Location = new System.Drawing.Point(117, 107);
+            this.RadioButtonSpecificCountry.Name = "RadioButtonSpecificCountry";
+            this.RadioButtonSpecificCountry.Size = new System.Drawing.Size(14, 13);
+            this.RadioButtonSpecificCountry.TabIndex = 0;
+            this.RadioButtonSpecificCountry.TabStop = true;
+            this.RadioButtonSpecificCountry.UseVisualStyleBackColor = true;
+            this.RadioButtonSpecificCountry.CheckedChanged += new System.EventHandler(this.RadioButtonSpecificCountry_CheckedChanged);
+            // 
+            // TextBoxFileLocation
+            // 
+            this.TextBoxFileLocation.Location = new System.Drawing.Point(137, 74);
+            this.TextBoxFileLocation.Name = "TextBoxFileLocation";
+            this.TextBoxFileLocation.ReadOnly = true;
+            this.TextBoxFileLocation.Size = new System.Drawing.Size(276, 23);
+            this.TextBoxFileLocation.TabIndex = 15;
+            // 
+            // LabelNextUpdate
+            // 
+            this.LabelNextUpdate.AutoSize = true;
+            this.LabelNextUpdate.Location = new System.Drawing.Point(6, 184);
+            this.LabelNextUpdate.Name = "LabelNextUpdate";
+            this.LabelNextUpdate.Size = new System.Drawing.Size(0, 15);
+            this.LabelNextUpdate.TabIndex = 14;
             // 
             // ProgressBarCountryData
             // 
-            this.ProgressBarCountryData.Location = new System.Drawing.Point(6, 170);
+            this.ProgressBarCountryData.Location = new System.Drawing.Point(6, 202);
             this.ProgressBarCountryData.Name = "ProgressBarCountryData";
             this.ProgressBarCountryData.Size = new System.Drawing.Size(326, 10);
             this.ProgressBarCountryData.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -197,7 +244,7 @@ namespace Covid19Stats
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(256, 210);
+            this.linkLabel1.Location = new System.Drawing.Point(256, 233);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(175, 15);
             this.linkLabel1.TabIndex = 10;
@@ -207,26 +254,17 @@ namespace Covid19Stats
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 209);
+            this.label5.Location = new System.Drawing.Point(18, 233);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(159, 15);
             this.label5.TabIndex = 11;
             this.label5.Text = "Data from: about-corona.net";
             // 
-            // LabelNextUpdate
-            // 
-            this.LabelNextUpdate.AutoSize = true;
-            this.LabelNextUpdate.Location = new System.Drawing.Point(6, 152);
-            this.LabelNextUpdate.Name = "LabelNextUpdate";
-            this.LabelNextUpdate.Size = new System.Drawing.Size(76, 15);
-            this.LabelNextUpdate.TabIndex = 14;
-            this.LabelNextUpdate.Text = "Next Update:";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 236);
+            this.ClientSize = new System.Drawing.Size(443, 257);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.GroupBoxCountryData);
@@ -249,19 +287,22 @@ namespace Covid19Stats
         private System.Windows.Forms.NumericUpDown NumericUpDownRefreshInterval;
         private System.Windows.Forms.Button ButtonChooseFileLocation;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label LabelFileLocation;
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialogFileLocation;
         private System.Windows.Forms.Button ButtonStartStop;
         private System.Windows.Forms.GroupBox GroupBoxCountryData;
         private System.Windows.Forms.Timer TimerCountryData;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar ProgressBarCountryData;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox CheckBoxSpecificCountry;
-        private System.Windows.Forms.TextBox TextBoxSpecificCountry;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label LabelNextUpdate;
+        private System.Windows.Forms.TextBox TextBoxFileLocation;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton RadioButtonSpecificCountry;
+        private System.Windows.Forms.CheckBox CheckBoxWorldData;
+        private System.Windows.Forms.RadioButton RadioButtonAllCountries;
+        private System.Windows.Forms.ComboBox ComboBoxCountries;
+        private System.Windows.Forms.Button ButtonGetData;
     }
 }
 
